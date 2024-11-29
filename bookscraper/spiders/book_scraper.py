@@ -15,6 +15,8 @@ class BookScraper(CrawlSpider):
     def parse_all_books(self, response):
         book_item = BookscraperItem()
 
+        book_list = []
+
         book_item["image_url"] = response.urljoin(response.css(".item.active > img::attr(src)").get())
 
         book_item["title"] = response.css(".col-sm-6.product_main > h1::text").get()
@@ -22,4 +24,6 @@ class BookScraper(CrawlSpider):
         # book_item["upc"] = response.css(".table.table-striped > tr:nth-child(1) > td::text").get()
         book_item["url"] = response.url
 
-        return book_item
+        book_list.append(book_item)
+
+        return book_list
